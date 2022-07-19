@@ -53,28 +53,6 @@ class _PoliceScreenState extends State<PoliceScreen>
   void initState() {
     super.initState();
     _getUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
   }
 
   @override
@@ -147,7 +125,7 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               child: TextFormField(
                                 controller: email,
                                 onSaved: (value) {
@@ -218,7 +196,7 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               child: TextFormField(
                                 controller: phoneNumber,
                                 onSaved: (value) {
@@ -235,6 +213,7 @@ class _PoliceScreenState extends State<PoliceScreen>
                                   } else if (value.length > 10) {
                                     return ("Too many digits entered");
                                   }
+                                  return null;
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
@@ -387,7 +366,7 @@ class _PoliceScreenState extends State<PoliceScreen>
               .whenComplete(() => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PoliceRequest(),
+                      builder: (context) => const PoliceRequest(),
                     ),
                   )),
         )

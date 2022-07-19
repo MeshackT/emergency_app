@@ -37,34 +37,6 @@ class _LogInState extends State<LogIn> with WidgetsBindingObserver {
   TextEditingController password = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    // _uploadUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -169,6 +141,7 @@ class _LogInState extends State<LogIn> with WidgetsBindingObserver {
                                 if (!regex.hasMatch(value)) {
                                   return ("password min of 6 characters");
                                 }
+                                return null;
                               },
                               textAlign: TextAlign.center,
                               obscureText: passwordVisible,
@@ -349,5 +322,6 @@ class _LogInState extends State<LogIn> with WidgetsBindingObserver {
             fontSize: 16.0);
       }
     }
+    return null;
   }
 }

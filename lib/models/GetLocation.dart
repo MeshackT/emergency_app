@@ -12,21 +12,4 @@ class GetLocation {
       // getAddressFromLatLng();
     });
   }
-//
-// Future<void> getAddressFromLatLng() async {
-//   try {
-//     List<Placemark> placemark = await placemarkFromCoordinates(
-//         currentPosition!.latitude, currentPosition!.longitude);
-//     log.i('Location Coordinates: $placemark');
-//
-//     Placemark place = placemark[0];
-//
-//     currentAddress =
-//         "${place.locality}, ${place.postalCode}, ${place.country}";
-//
-//   } catch (e) {
-//     Fluttertoast.showToast(msg: "Error: Network not connected");
-//     log.i("Error: $e");
-//   }
-// }
 }

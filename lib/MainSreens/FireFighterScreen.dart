@@ -55,28 +55,6 @@ class _FireFighterScreenState extends State<FireFighterScreen>
     super.initState();
     // _uploadUserData();
     _getUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
   }
 
   bool showProgressBar = false;
@@ -119,7 +97,7 @@ class _FireFighterScreenState extends State<FireFighterScreen>
                         key: _formKey,
                         child: Column(
                           children: [
-                            Container(
+                            SizedBox(
                               child: TextFormField(
                                 controller: emergencyTypeRequest,
                                 onSaved: (value) {
@@ -219,7 +197,7 @@ class _FireFighterScreenState extends State<FireFighterScreen>
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               child: TextFormField(
                                 controller: phoneNumber,
                                 onSaved: (value) {
@@ -236,6 +214,7 @@ class _FireFighterScreenState extends State<FireFighterScreen>
                                   } else if (value.length > 10) {
                                     return ("Too many digits entered");
                                   }
+                                  return null;
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
@@ -392,7 +371,7 @@ class _FireFighterScreenState extends State<FireFighterScreen>
             () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FireFighterRequest(),
+                builder: (context) => const FireFighterRequest(),
               ),
             ),
           ),

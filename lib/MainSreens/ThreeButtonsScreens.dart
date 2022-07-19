@@ -1,5 +1,4 @@
 import 'package:afpemergencyapplication/CallerClass/DirectCallerClass.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -17,33 +16,6 @@ class _ThreeButtonsScreenState extends State<ThreeButtonsScreen>
   Logger log = Logger(
     printer: PrettyPrinter(colors: true),
   );
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

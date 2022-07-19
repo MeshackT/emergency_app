@@ -30,28 +30,6 @@ class _EmergencyTypeState extends State<EmergencyType>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
   }
 
   @override
@@ -199,7 +177,6 @@ class _EmergencyTypeState extends State<EmergencyType>
 
   Future<void> selectedItem(BuildContext context, item) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    User? user = FirebaseAuth.instance.currentUser;
 
     switch (item) {
       case 0:

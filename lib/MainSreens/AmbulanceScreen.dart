@@ -59,28 +59,6 @@ class _AmbulanceScreenState extends State<AmbulanceScreen>
     super.initState();
     // _uploadUserData();
     _getUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
   }
 
   @override
@@ -242,6 +220,7 @@ class _AmbulanceScreenState extends State<AmbulanceScreen>
                                   } else if (value.length > 10) {
                                     return ("Too many digits entered");
                                   }
+                                  return null;
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(

@@ -50,7 +50,7 @@ class _UserRegisterState extends State<UserRegister>
     setState(() {
       latitudeData = (_currentPosition!.latitude).toString();
       longitudeData = (_currentPosition!.longitude.toString());
-      address.text = latitudeData + " " + longitudeData;
+      address.text = "$latitudeData $longitudeData";
     });
   }
 
@@ -61,34 +61,6 @@ class _UserRegisterState extends State<UserRegister>
       return false;
     }
     return true;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // _uploadUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
   }
 
   @override
@@ -201,6 +173,7 @@ class _UserRegisterState extends State<UserRegister>
                                   if (value.length < 5) {
                                     return ("Your password is too short!(Length 7 minimum)");
                                   }
+                                  return null;
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
@@ -283,6 +256,7 @@ class _UserRegisterState extends State<UserRegister>
                                   } else if (value.length > 10) {
                                     return ("Too many digits entered");
                                   }
+                                  return null;
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
@@ -331,9 +305,8 @@ class _UserRegisterState extends State<UserRegister>
                                       _getCurrentLocation();
                                       setState(
                                         () {
-                                          address.text = latitudeData +
-                                              " " +
-                                              longitudeData;
+                                          address.text =
+                                              "$latitudeData $longitudeData";
                                         },
                                       );
                                     },
@@ -448,24 +421,24 @@ class _UserRegisterState extends State<UserRegister>
   }
 
   Future<void> registerUsers(String email, String password) async {
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
     if (_formKey.currentState!.validate()) {
-      await _auth
+      await auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => {
                 postDetailsToFirebase(),
               })
           .catchError((e) {
-        Fluttertoast.showToast(msg: "Failed to login!" + e!.message);
+        Fluttertoast.showToast(msg: "Failed to login! $e!.message");
       });
     }
   }
 
   postDetailsToFirebase() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
 
-    User? user = _auth.currentUser;
+    User? user = auth.currentUser;
 
     UserModel userModel = UserModel();
     //writing to firebase
@@ -480,11 +453,11 @@ class _UserRegisterState extends State<UserRegister>
     await firebaseFirestore
         .collection("users")
         .doc(user?.uid)
-        .set(userModel.toMap());
-
-    Fluttertoast.showToast(msg: "account created successfully");
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const EmergencyType()),
-        result: (route) => false);
+        .set(userModel.toMap())
+        .then((value) =>
+            Fluttertoast.showToast(msg: "account created successfully"))
+        .whenComplete(() => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const EmergencyType()),
+            result: (route) => false));
   }
 }

@@ -64,34 +64,6 @@ class _EditRequestState extends State<EditRequest> with WidgetsBindingObserver {
   }
 
   @override
-  void initState() {
-    super.initState();
-    // _uploadUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> ambulanceRequestStream =
         FirebaseFirestore.instance.collection("ambulance-requests").snapshots();
@@ -288,6 +260,7 @@ class _EditRequestState extends State<EditRequest> with WidgetsBindingObserver {
                                 } else if (value.length > 10) {
                                   return ("Too many digits entered");
                                 }
+                                return null;
                               },
                               onSaved: (value) {
                                 setState(() {

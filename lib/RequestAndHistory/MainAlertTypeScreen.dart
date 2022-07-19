@@ -2,7 +2,6 @@ import 'package:afpemergencyapplication/MainSreens/HomeScreen.dart';
 import 'package:afpemergencyapplication/RequestAndHistory/FireFighterRequest.dart';
 import 'package:afpemergencyapplication/RequestAndHistory/MyRequest.dart';
 import 'package:afpemergencyapplication/RequestAndHistory/PoliceRequest.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MainAlertTypeScreen extends StatefulWidget {
@@ -14,36 +13,7 @@ class MainAlertTypeScreen extends StatefulWidget {
   _MainAlertTypeScreenState createState() => _MainAlertTypeScreenState();
 }
 
-class _MainAlertTypeScreenState extends State<MainAlertTypeScreen>
-    with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    // _uploadUserData();
-    WidgetsBinding.instance!.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance!.addObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    WidgetsBinding.instance!.addObserver(this);
-    switch (state) {
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.resumed:
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        break;
-    }
-  }
-
+class _MainAlertTypeScreenState extends State<MainAlertTypeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +101,7 @@ class _MainAlertTypeScreenState extends State<MainAlertTypeScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FireFighterRequest()),
+                            builder: (context) => const FireFighterRequest()),
                       );
                     },
                     child: const Text(
@@ -158,7 +128,7 @@ class _MainAlertTypeScreenState extends State<MainAlertTypeScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PoliceRequest(),
+                          builder: (context) => const PoliceRequest(),
                         ),
                       );
                     },
