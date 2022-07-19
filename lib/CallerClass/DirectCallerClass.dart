@@ -1,6 +1,7 @@
 import 'package:afpemergencyapplication/MainSreens/HomeScreen.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 Logger logger = Logger();
@@ -42,5 +43,18 @@ class DirectCallerClass {
       );
       throw ("Error: $e");
     }
+  }
+
+  String formattedDate(timeStamp) {
+    var dateFromTimeStamp =
+        DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds * 1000);
+    return DateFormat('dd MMMM yyyy').format(dateFromTimeStamp);
+  }
+
+  String formattedTime() {
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat.Hm().format(now);
+    print(formattedTime);
+    return formattedTime;
   }
 }

@@ -69,7 +69,7 @@ class _EmergencyTypeState extends State<EmergencyType>
                       Text(
                         "My Requests",
                         style: TextStyle(
-                            color: Colors.purple, fontFamily: "GaramondBold"),
+                            color: Colors.green, fontFamily: "GaramondBold"),
                       ),
                     ],
                   ),
@@ -89,7 +89,7 @@ class _EmergencyTypeState extends State<EmergencyType>
                       Text(
                         "My Profile",
                         style: TextStyle(
-                            color: Colors.purple, fontFamily: "GaramondBold"),
+                            color: Colors.green, fontFamily: "GaramondBold"),
                       ),
                     ],
                   ),
@@ -109,7 +109,7 @@ class _EmergencyTypeState extends State<EmergencyType>
                       Text(
                         "Logout",
                         style: TextStyle(
-                            color: Colors.purple, fontFamily: "GaramondBold"),
+                            color: Colors.green, fontFamily: "GaramondBold"),
                       ),
                     ],
                   ),
@@ -190,9 +190,9 @@ class _EmergencyTypeState extends State<EmergencyType>
             context, UserProfile.routeName, (route) => false);
         break;
       case 2:
-        await firebaseAuth.signOut();
-        Navigator.pushNamedAndRemoveUntil(
-            context, LogIn.routeName, (route) => false);
+        await firebaseAuth.signOut().then((value) =>
+            Navigator.pushNamedAndRemoveUntil(
+                context, LogIn.routeName, (route) => false));
         break;
     }
   }

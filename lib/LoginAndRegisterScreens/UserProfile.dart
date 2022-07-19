@@ -90,7 +90,7 @@ class _UserProfileState extends State<UserProfile> with WidgetsBindingObserver {
                   const Text(
                     "My Profile",
                     style: TextStyle(
-                        color: Colors.purple,
+                        color: Colors.green,
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold),
                   ),
@@ -178,7 +178,7 @@ class _UserProfileState extends State<UserProfile> with WidgetsBindingObserver {
                                         Text(
                                           fullName,
                                           style: const TextStyle(
-                                              color: Colors.purple),
+                                              color: Colors.green),
                                         ),
                                         const SizedBox(
                                           height: 5,
@@ -186,7 +186,7 @@ class _UserProfileState extends State<UserProfile> with WidgetsBindingObserver {
                                         Text(
                                           email,
                                           style: const TextStyle(
-                                              color: Colors.purple),
+                                              color: Colors.green),
                                         ),
                                         const SizedBox(
                                           height: 5,
@@ -194,7 +194,7 @@ class _UserProfileState extends State<UserProfile> with WidgetsBindingObserver {
                                         Text(
                                           phoneNumber,
                                           style: const TextStyle(
-                                              color: Colors.purple),
+                                              color: Colors.green),
                                         ),
                                         const SizedBox(
                                           height: 5,
@@ -203,7 +203,7 @@ class _UserProfileState extends State<UserProfile> with WidgetsBindingObserver {
                                           address,
                                           textAlign: TextAlign.end,
                                           style: const TextStyle(
-                                              color: Colors.purple),
+                                              color: Colors.green),
                                         ),
                                       ],
                                     ),
@@ -225,14 +225,14 @@ class _UserProfileState extends State<UserProfile> with WidgetsBindingObserver {
                   Center(
                     child: TextButton(
                       onPressed: () async {
-                        await firebaseAuth.signOut();
-                        Navigator.pushReplacementNamed(
-                            context, LogIn.routeName);
+                        await firebaseAuth.signOut().then((value) =>
+                            Navigator.pushReplacementNamed(
+                                context, LogIn.routeName));
                       },
                       child: const Text(
                         "Sign out",
-                        style: TextStyle(
-                            fontFamily: 'Mplus', color: Colors.purple),
+                        style:
+                            TextStyle(fontFamily: 'Mplus', color: Colors.green),
                       ),
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:afpemergencyapplication/CallerClass/DirectCallerClass.dart';
 import 'package:afpemergencyapplication/EditRequests/EditFireFighterRequest.dart';
 import 'package:afpemergencyapplication/MainSreens/HomeScreen.dart';
 import 'package:afpemergencyapplication/RequestAndHistory/MainAlertTypeScreen.dart';
@@ -20,6 +21,7 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
   Logger logger = Logger();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
+  DirectCallerClass directCallerClass = DirectCallerClass();
 
   UserModel userModel = UserModel();
   List requestList = [];
@@ -30,6 +32,7 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
     Stream<QuerySnapshot> fireRequestStream = FirebaseFirestore.instance
         .collection("fire-fighter-request")
         .where('owner', isEqualTo: user!.uid)
+        //.orderBy('date', descending: true)
         .snapshots();
 
     return Scaffold(
@@ -75,7 +78,7 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                 ),
                 Text(
                   'Something went wrong',
-                  style: TextStyle(color: Colors.purple, fontSize: 16),
+                  style: TextStyle(color: Colors.green, fontSize: 16),
                 ),
               ],
             );
@@ -135,7 +138,7 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                         subtitle: ExpansionTile(
                           title: const Text(
                             "More",
-                            style: TextStyle(fontSize: 14, color: Colors.red),
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           children: [
                             const Text(
@@ -147,7 +150,7 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                             Text(
                               data['emergencyTypeRequest'],
                               style: const TextStyle(
-                                color: Colors.purple,
+                                color: Colors.green,
                               ),
                             ),
                             const Text("Phone Number"),
@@ -155,7 +158,7 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                               data["phoneNumber"],
                               style: const TextStyle(
                                 letterSpacing: 3,
-                                color: Colors.purple,
+                                color: Colors.green,
                               ),
                             ),
                           ],
@@ -165,10 +168,10 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                         //   style: const TextStyle(color: Colors.red),
                         // ),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Colors.white,
                           child: Text(
                             data['fullName'][0],
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.green),
                           ),
                         ),
                         trailing: SizedBox(
@@ -177,6 +180,12 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                              Text(
+                                data['time'],
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 15),
+                                textAlign: TextAlign.end,
+                              ),
                               const Text(
                                 "Address",
                                 style: TextStyle(color: Colors.green),
@@ -234,10 +243,19 @@ class _FireFighterRequestState extends State<FireFighterRequest> {
                                 }
                               },
                             ),
-                            const Text(
-                              "Await a call",
-                              style:
-                                  TextStyle(color: Colors.purple, fontSize: 14),
+                            Column(
+                              children: [
+                                const Text(
+                                  "Await a call",
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 14),
+                                ),
+                                Text(
+                                  directCallerClass.formattedDate(data['date']),
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14),
+                                ),
+                              ],
                             ),
                             IconButton(
                               icon: const Icon(

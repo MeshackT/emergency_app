@@ -30,7 +30,7 @@ class _ThreeButtonsScreenState extends State<ThreeButtonsScreen>
                 child: Text(
                   "Tap-To-Call",
                   style: TextStyle(
-                    color: Colors.purple,
+                    color: Colors.green,
                     fontSize: 20,
                   ),
                 ),

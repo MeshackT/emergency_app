@@ -116,12 +116,12 @@ class _EditRequestState extends State<EditRequest> with WidgetsBindingObserver {
             );
           }
 
-          return ListView(
+          return Column(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               return Padding(
-                padding: const EdgeInsets.only(top: 20, right: 10, left: 10),
+                padding: const EdgeInsets.only(top: 5, right: 10, left: 10),
                 child: Card(
                   elevation: 8,
                   child: Form(

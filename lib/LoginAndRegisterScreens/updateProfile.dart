@@ -126,7 +126,7 @@ class _UpdateProfileState extends State<UpdateProfile>
                       child: Text(
                         "Details Update",
                         style: TextStyle(
-                            color: Colors.purple,
+                            color: Colors.green,
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold),
                       ),
@@ -168,7 +168,7 @@ class _UpdateProfileState extends State<UpdateProfile>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   prefix: Icon(
                                     Icons.email,
@@ -177,7 +177,7 @@ class _UpdateProfileState extends State<UpdateProfile>
                                   label: Text(
                                     'Email',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'email@gmail.com',
                                   contentPadding: EdgeInsets.symmetric(
@@ -200,12 +200,12 @@ class _UpdateProfileState extends State<UpdateProfile>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   label: Text(
                                     'Full Names',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'Full Names',
                                   prefix: Icon(
@@ -241,12 +241,12 @@ class _UpdateProfileState extends State<UpdateProfile>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   label: Text(
                                     'Phone Number',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'Phone Number',
                                   prefix: Icon(
@@ -273,9 +273,12 @@ class _UpdateProfileState extends State<UpdateProfile>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: InputDecoration(
-                                  label: const Text('Address'),
+                                  label: const Text(
+                                    'Address',
+                                    style: TextStyle(color: Colors.green),
+                                  ),
                                   hintText: 'Address',
                                   suffix: IconButton(
                                     onPressed: () async {

@@ -1,3 +1,4 @@
+import 'package:afpemergencyapplication/CallerClass/DirectCallerClass.dart';
 import 'package:afpemergencyapplication/EditRequests/EditRequest.dart';
 import 'package:afpemergencyapplication/MainSreens/HomeScreen.dart';
 import 'package:afpemergencyapplication/RequestAndHistory/MainAlertTypeScreen.dart';
@@ -17,16 +18,18 @@ class MyRequest extends StatefulWidget {
 
 class _MyRequestState extends State<MyRequest> {
   final Logger logger = Logger();
+  final DirectCallerClass directCallerClass = DirectCallerClass();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final User? user = FirebaseAuth.instance.currentUser;
-  final String uid = "";
 
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> ambulanceRequestStream = FirebaseFirestore.instance
         .collection("ambulance-requests")
+        //.orderBy('sendersName', descending: true)
         .where('owner', isEqualTo: user!.uid)
         .snapshots();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -70,7 +73,7 @@ class _MyRequestState extends State<MyRequest> {
                 ),
                 Text(
                   'Something went wrong',
-                  style: TextStyle(color: Colors.purple, fontSize: 16),
+                  style: TextStyle(color: Colors.green, fontSize: 16),
                 ),
               ],
             );
@@ -130,7 +133,7 @@ class _MyRequestState extends State<MyRequest> {
                         subtitle: ExpansionTile(
                           title: const Text(
                             "More",
-                            style: TextStyle(fontSize: 14, color: Colors.red),
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           children: [
                             const Text(
@@ -156,10 +159,10 @@ class _MyRequestState extends State<MyRequest> {
                           ],
                         ),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Colors.white,
                           child: Text(
                             data['fullName'][0],
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.green),
                           ),
                         ),
                         trailing: SizedBox(
@@ -168,6 +171,15 @@ class _MyRequestState extends State<MyRequest> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                              Text(
+                                data['time'],
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 15),
+                                textAlign: TextAlign.end,
+                              ),
+                              const Divider(
+                                height: 1,
+                              ),
                               const Text(
                                 "Address",
                                 style: TextStyle(color: Colors.green),
@@ -222,10 +234,19 @@ class _MyRequestState extends State<MyRequest> {
                                 }
                               },
                             ),
-                            const Text(
-                              "Await a call",
-                              style:
-                                  TextStyle(color: Colors.purple, fontSize: 14),
+                            Column(
+                              children: [
+                                const Text(
+                                  "Await a call",
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 14),
+                                ),
+                                Text(
+                                  directCallerClass.formattedDate(data['date']),
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14),
+                                ),
+                              ],
                             ),
                             IconButton(
                               icon: const Icon(

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 class PoliceScreen extends StatefulWidget {
@@ -76,7 +77,7 @@ class _PoliceScreenState extends State<PoliceScreen>
                       child: Text(
                         "Confirm your Details",
                         style: TextStyle(
-                            color: Colors.blue,
+                            color: Colors.green,
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold),
                       ),
@@ -108,12 +109,12 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   label: Text(
                                     'Emergency Type',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'Enter Emergency Type',
                                   prefix: Icon(
@@ -147,7 +148,7 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   prefix: Icon(
                                     Icons.email,
@@ -156,7 +157,7 @@ class _PoliceScreenState extends State<PoliceScreen>
                                   label: Text(
                                     'Email',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'email@gmail.com',
                                   contentPadding: EdgeInsets.symmetric(
@@ -179,12 +180,12 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   label: Text(
                                     'Full Names',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'Full Names',
                                   prefix: Icon(
@@ -217,12 +218,12 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: const InputDecoration(
                                   label: Text(
                                     'Phone Number',
                                     style: TextStyle(
-                                        fontSize: 14.0, color: Colors.purple),
+                                        fontSize: 14.0, color: Colors.green),
                                   ),
                                   hintText: 'Phone Number',
                                   prefix: Icon(
@@ -249,9 +250,12 @@ class _PoliceScreenState extends State<PoliceScreen>
                                 },
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                    fontSize: 14.0, color: Colors.purple),
+                                    fontSize: 14.0, color: Colors.green),
                                 decoration: InputDecoration(
-                                  label: const Text('Address'),
+                                  label: const Text(
+                                    'Address',
+                                    style: TextStyle(color: Colors.green),
+                                  ),
                                   hintText: 'Address',
                                   suffix: IconButton(
                                     onPressed: () async {
@@ -350,10 +354,19 @@ class _PoliceScreenState extends State<PoliceScreen>
   Future<void> sendRequest() {
     CollectionReference users =
         FirebaseFirestore.instance.collection('police-requests');
+    //date
+    Timestamp timeStamp = Timestamp.now();
+    DateTime dateTime =
+        DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds * 1000);
+    //time
+    DateTime now = DateTime.now();
+    String formattedTime = DateFormat.Hm().format(now);
     // Call the user's CollectionReference to add a new user
     return users
         .add({
           'uid': uid,
+          'date': dateTime,
+          'time': formattedTime,
           'email': email.text,
           'phoneNumber': phoneNumber.text,
           'emergencyTypeRequest': emergencyTypeRequest.text,

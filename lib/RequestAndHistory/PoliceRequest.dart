@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
+import '../CallerClass/DirectCallerClass.dart';
+
 class PoliceRequest extends StatefulWidget {
   static const routeName = '/PoliceRequest';
 
@@ -21,12 +23,14 @@ class _PoliceRequestState extends State<PoliceRequest> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
   String uid = "";
+  DirectCallerClass directCallerClass = DirectCallerClass();
 
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> policeRequestStream = FirebaseFirestore.instance
         .collection("police-requests")
         .where('owner', isEqualTo: user!.uid)
+        //.orderBy('date', descending: true)
         .snapshots();
 
     return Scaffold(
@@ -72,7 +76,7 @@ class _PoliceRequestState extends State<PoliceRequest> {
                 ),
                 Text(
                   'Something went wrong',
-                  style: TextStyle(color: Colors.purple, fontSize: 16),
+                  style: TextStyle(color: Colors.green, fontSize: 16),
                 ),
               ],
             );
@@ -132,7 +136,7 @@ class _PoliceRequestState extends State<PoliceRequest> {
                         subtitle: ExpansionTile(
                           title: const Text(
                             "More",
-                            style: TextStyle(fontSize: 14, color: Colors.red),
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                           children: [
                             const Text(
@@ -162,10 +166,10 @@ class _PoliceRequestState extends State<PoliceRequest> {
                         //   style: const TextStyle(color: Colors.red),
                         // ),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Colors.white,
                           child: Text(
                             data['fullName'][0],
-                            style: const TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.green),
                           ),
                         ),
                         trailing: SizedBox(
@@ -174,6 +178,12 @@ class _PoliceRequestState extends State<PoliceRequest> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
+                              Text(
+                                data['time'],
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 15),
+                                textAlign: TextAlign.end,
+                              ),
                               const Text(
                                 "Address",
                                 style: TextStyle(color: Colors.green),
@@ -231,10 +241,19 @@ class _PoliceRequestState extends State<PoliceRequest> {
                                 }
                               },
                             ),
-                            const Text(
-                              "Await a call",
-                              style:
-                                  TextStyle(color: Colors.purple, fontSize: 14),
+                            Column(
+                              children: [
+                                const Text(
+                                  "Await a call",
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 14),
+                                ),
+                                Text(
+                                  directCallerClass.formattedDate(data['date']),
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14),
+                                ),
+                              ],
                             ),
                             IconButton(
                               icon: const Icon(
